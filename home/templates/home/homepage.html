@@ -1,0 +1,529 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Data Health Monitoring</title>
+
+    <script src="/static/home/js/jquery-1.11.0.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/home/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/home/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/static/home/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/home/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<!-- added by shivalik -->
+    
+            
+            
+        
+<!-- added by shivalik ends -->
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Data Health Monitoring</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+                  <!--    {% if user.is_active  %} -->
+                     <b> Welcome {{ user.get_username }}</b>
+                <!--    {% endif %}-->
+                     <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        <li>
+                            <a href="/accounts/password/change"> Change Password</a>
+                        </li>
+                        <li>
+                            <a href="/accounts/logout">Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="/admin"> Admin</a>
+                    </li>
+                    <li class="active">
+                        <a href="/"> Dashboard</a>
+                    </li>
+		            <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"> DHM <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="/consistency">Generate Inconsistency Report</a>
+                            </li>
+                            <li>
+                                <a href="#">Mock Reconciliation</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/transactions"> Trans Performance</a>
+                    </li>
+                    <li>
+                        <a href="#"> Usage Statistics</a>
+                    </li>
+                    <li>
+                        <a href="/home/about/"> About</a>
+
+                    
+                    <li>
+                        <a href="/home/faq/"> FAQs</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Statistics Overview</small>
+                        </h1>
+                    </div>
+                </div>
+        <div class="jumbotron">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-bar-chart-o fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{ max_count }}</div>
+                                        <div style="padding-left:10px">Latest Max. Count</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{ total_count }}</div>
+                                        <div>Total Count</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa  fa-flag fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{total_cust}}</div>
+                                        <div>Total Customer</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-bookmark fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">0</div>
+                                        <div>Reminders</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+   
+
+   <div id ="chart">
+      
+              
+
+                        
+                   
+<!--{% block title %}Chart <small>Charts</small>{% endblock %} --> 
+
+    <div class="col-lg-12"> 
+                 <!--   <div class="col-lg-6"> -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Inconsistencies by Customer</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="polls_container" style="width: 900px ;height: 500px"></div>
+                                <script type="text/javascript">
+                                var chart;
+                                var chartdate =  ['{{ date|join:"','" }}']
+                                /*alert(chartdate[0].substring(0,4))*/
+
+                                var tmp = [];
+
+                                tmp = chartdate[0].substring(0,4)
+
+                                for(i = 0;i<chartdate.length;i++){
+
+                                    temp1 = new Date(chartdate[i]);
+                                    temp2=temp1.getDate() + "-" + (temp1.getMonth()+1) + "-14";
+
+                                    chartdate[i] = temp2;
+                                    /*tmp.push(temp2);*/
+                                }
+                                /*var chartdate =  [{{ date }}]*/
+                                jQuery(document).ready(function() {
+                                    chart = new Highcharts.Chart({
+                                        chart: {
+                                            renderTo: 'polls_container',
+                                            defaultSeriesType: 'line',
+                                            marginRight: 130,
+                                            marginBottom: 80,
+                                            /*zoomType: 'x'*/
+                                        },
+                                        title: {
+                                            text: ' ',
+                                            x: -20 //center
+                                        },
+                                        subtitle: {
+                                            text: '',
+                                            x: -20
+                                        },
+                                        xAxis: {
+                                           type: 'datetime',
+                                           //dateTimeLabelFormats: { // don't display the dummy year
+                                           //month: '%e. %b',
+                                          // year: '%b'
+                                           //},
+                                            /*tickInterval : 12*30*24*3600* 1000,*/
+                                            /*min : chartdate[0],
+                                            max : chartdate[20],*/
+                                            /*categories: [ '{{ categories|join:"','" }}']*/
+                                            categories:  chartdate
+
+                                        //  categories: ['Fall 2008', 'Spring 2009','Fall 2009', 'Spring 2010', 'Fall 2010', 'Spring 2011']
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: 'Number of Inconsistencies'
+                                            },
+                                            plotLines: [{
+                                                value: 0,
+                                                width: 1,
+                                                color: '#808080'
+                                            }]
+                                        },
+                                        tooltip: {
+                                            formatter: function() {
+                                                    return ''+ this.series.name +''+this.x +': '+ this.y;
+                                            }
+                                        },
+                                        legend: {
+                                            layout: 'vertical',
+                                            align: 'right',
+                                            verticalAlign: 'top',
+                                            x: -10,
+                                            y: 100,
+                                            borderWidth: 0
+                                        },
+                                        series: [
+                                        /*{
+                                            name: 'Total Inconsistencies',
+                                            //data: [1, 27, 34, 39, 46, 56]
+                                            //data: [{{ total_enrolled|join:"," }}]
+                                            data: [{{ ct|join:"," }}]
+                                        },*/
+                                        {
+                                            name: 'Air India',
+                                            /*data: [{{ undergrad|join:"," }}]*/
+                                            data: [{{ air|join:"," }}]
+                                            //data: [18, 22, 30, 34, 40, 47]
+                                        }, {
+                                            name: 'Aero Gulf',
+                                            /*data: [{{ grad|join:"," }}]*/
+                                            data: [{{ aero|join:"," }}]
+                                            //data: [1, 2, 4, 4, 5, 7]
+                                        }, 
+                                        /*{
+                                            name: 'Republic Airline Holdings',
+                                            
+                                            data: [{{ ct|join:"," }}]
+                                            //data: [2, 3, 0, 1, 1, 2]
+                                        }*/
+                                        ]
+                                    });
+
+                                });
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+
+<!-- <div class="col-lg-6">
+    <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Inconsistencies by Customer</h3>
+                            </div>
+                            <div class="panel-body">
+
+<div id="polls_2" style="width: auto;height: 500px"></div>
+
+
+ <script type="text/javascript">
+var chart;
+jQuery(document).ready(function() {
+    chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'polls_2',
+            defaultSeriesType: 'line',
+            marginRight: 130,
+            marginBottom: 40
+        },
+        title: {
+            text: '',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '',
+            x: -20
+        },
+        xAxis: {
+            categories: [ '{{ categories|join:"','" }}']
+        //  categories: ['Fall 2008', 'Spring 2009','Fall 2009', 'Spring 2010', 'Fall 2010', 'Spring 2011']
+        },
+        yAxis: {
+            title: {
+                text: 'Number of Inconsistencies'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            formatter: function() {
+                    return ''+ this.series.name +''+this.x +': '+ this.y;
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -10,
+            y: 100,
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Total Inconsistencies',
+            //data: [1, 27, 34, 39, 46, 56]
+            data: [{{ total_enrolled|join:"," }}]
+        }, {
+            name: 'Airbus',
+            data: [{{ undergrad|join:"," }}]
+            //data: [18, 22, 30, 34, 40, 47]
+        }, {
+            name: 'Boeing',
+            data: [{{ grad|join:"," }}]
+            //data: [1, 2, 4, 4, 5, 7]
+        }, {
+            name: 'Emirates',
+            data: [{{ employee|join:"," }}]
+            //data: [2, 3, 0, 1, 1, 2]
+        }]
+    });
+
+});
+</script> 
+
+</div>-->
+<div class="col-lg-12">
+    <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Total Inconsistencies by Customer share</h3>
+                            </div>
+                            <div class="panel-body">
+
+<div id="container" style="width: auto; height: 500px; margin: auto"></div>
+
+<script type="text/javascript">
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Inconsistencies by %',
+                data: [
+                    ['Air India',   45.0],
+                    ['Aero Gulf',       26.8],
+                    {
+                        name: 'GMR',
+                        y: 12.8,
+                        sliced: true,
+                        selected: true
+                    },
+                    ['RAH',    8.5],
+                    ['APlus',     6.2],
+                    ['Others',   0.7]
+                ]
+            }]
+        });
+    });
+
+});
+</script>
+
+</div>
+</div>
+</div>
+
+
+
+
+                </div>
+                <!-- /.row -->
+
+                <!-- shivalik trying to create charts here -->
+
+
+                
+
+               
+                
+
+                
+<!-- shivalik code ends here -->
+
+            </div> <!-- /.row --> <!-- jumbotron div ends here -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="/static/home/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/home/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/static/home/js/plugins/morris/raphael.min.js"></script>
+    <script src="/static/home/js/plugins/morris/morris.min.js"></script>
+    <script src="/static/home/js/plugins/morris/morris-data.js"></script>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="/static/home/js/highcharts.js"></script>
+    <!-- <script src="/static/home/js/theme/dark-unica.js"></script>
+    <script src="/static/home/js/theme/gray.js"></script> 
+
+    <script src="/static/home/js/theme/sand-signika.js"></script>-->
+
+</body>
+
+</html>

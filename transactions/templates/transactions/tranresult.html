@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load render_table from django_tables2 %}
+{% load staticfiles %}
+
+
+    <head>
+        <title>DHMT|Transactions|View Report</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/django_tables2/css/bootstrap.min.css" />
+
+
+    </head>
+
+    <ul class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/transactions">Transactions Report</a></li>
+        <li>Results</li>
+    </ul>
+    <body>
+        
+        <h2 align="center">Transaction Statistics Report</h2>
+        {% render_table table %}
+    </body>
