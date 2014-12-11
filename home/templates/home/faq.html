@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Data Health Monitoring</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/home/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/home/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/home/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script type="text/javascript">
+<!--
+function toggle(id) {
+var e = document.getElementById(id);
+if(e.style.display == 'none')
+e.style.display = 'block';
+else
+e.style.display = 'none';
+}
+//-->
+</script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+
+                <a class="navbar-brand" href="/">Data Health Monitoring</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">             
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Welcome, {{ user.get_username }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       
+                        <li>
+                            <a href="/accounts/password/change"> Change Password</a>
+                        </li>
+                        <li>
+                            <a href="/accounts/logout"> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="/admin"> Admin</a>
+                    </li>
+                    <li>
+                        <a href="/"> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"> DHM <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="/consistency">Generate Inconsistency Report</a>
+                            </li>
+                            <li>
+                                <a href="#">Mock Reconciliation</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/transactions"> Trans Performance</a>
+                    </li>
+                    <li>
+                        <a href="#"> Usage Statistics</a>
+                    </li>
+                    <li>
+                        <a href="/home/about"> About</a>
+
+
+                    <li class="active">
+                        <a href="/home/faq"> FAQs</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                           FAQs
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="jumbotron">
+                    <ul id="faq">
+                            <li><div id="circle">1</div><a href="#" onclick="toggle('answer1');">What is DHM? </a><br/>
+                            <div style="display:none" id="answer1" class="answer"><p>DHM stands for Data Health Monitoring.</p></div></li>
+                            <li><div id="circle">2</div><a href="#" onclick="toggle('answer2');">What is the use of this tool?</a><br/>
+                            <div style="display:none" id="answer2" class="answer"><p>This tool will be used to generate inconsistency reports, transaction statistics and month end reconciliation. The consistency report is used to check inconsistent data in the database. It uses a predefined set of consistency queries that compare the master table with other tables and finds the discrepancy in data. 
+                            Transaction statistics is used to know about the frequency of the component of the aviation product, used by the costumer. .</p></div></li>
+                            <li><div id="circle">3</div><a href="#" onclick="toggle('answer3');">How to generate Inconsistency report?</a><br/>
+                            <div style="display:none" id="answer3" class="answer"><p>To generate an inconsistency report, click on the DHM tab from the side menu and select 'Generate Inconsistency Report'. Select the customer name, severity level, modules, bussiness components and run date and click on 'Genearte Report'. </p></div></li>
+                            <li><div id="circle">4</div><a href="#" onclick="toggle('answer4');">How to download a report?</a><br/>
+                            <div style="display:none" id="answer4" class="answer"><p>To download the report, first you have to generate the report and then click on the 'Download Report' on the right top</p></div></li>
+                            <li><div id="circle">5</div><a href="#" onclick="toggle('answer5');">What if I want to add a customer?</a><br/>
+                            <div style="display:none" id="answer5" class="answer"><p>To add a customer to the app, you must have admin user rights. If you do, proceed to the Admin tab on the left, login with proper credentials and then go to the Masters tab on the left. 
+                            Then click on Customer Registration and in the new screen click on the '+' symbol on the top right. Now enter the details and ensure you Save before proceeding. </p></div></li>
+                            <li><div id="circle">6</div><a href="#" onclick="toggle('answer6');">What if I want to add a user?</a><br/>
+                            <div style="display:none" id="answer6" class="answer"><p>To add a user to the app, you must have admin user rights. If you do, proceed to the Admin tab on the left, login with proper credentials and then go to the Authentication and Authorization tab on the left. 
+                            Then click on User Registration and in the new screen click on the '+' symbol on the top right. Now enter the details and ensure you Save before proceeding.</p></div></li>
+                            <li><div id="circle">7</div><a href="#" onclick="toggle('answer7');">What if I want to add a module?</a><br/>
+                            <div style="display:none" id="answer7" class="answer"><p>To add a module to the app, you must have admin user rights. If you do, proceed to the Admin tab on the left, login with proper credentials and then go to the Masters tab on the left. 
+                            Then click on Module and in the new screen click on the '+' symbol on the top right. Now enter the details and ensure you Save before proceeding.</p></div></li>
+                            <li><div id="circle">8</div><a href="#" onclick="toggle('answer8');">What if I want to add a bussiness process?</a><br/>
+                            <div style="display:none" id="answer8" class="answer"><p>To add a BP to the app, you must have admin user rights. If you do, proceed to the Admin tab on the left, login with proper credentials and then go to the Masters tab on the left. 
+                            Then click on Business Process and in the new screen click on the '+' symbol on the top right. Now enter the details and ensure you Save before proceeding.</p></div></li>
+                            <li><div id="circle">9</div><a href="#" onclick="toggle('answer9');">How to view previous reports?</a><br/>
+                            <div style="display:none" id="answer9" class="answer"><p>To add a type of Severity to the app, you must have admin user rights. If you do, proceed to the Admin tab on the left, login with proper credentials and then go to the Masters tab on the left. 
+                            Then click on Severity and in the new screen click on the '+' symbol on the top right. Now enter the details and ensure you Save before proceeding.</p></div></li>
+                            <li><div id="circle">10</div><a href="#" onclick="toggle('answer10');">How to change my password?</a><br/>
+                            <div style="display:none" id="answer10" class="answer"><p>To change your password, click on the Welcome {{ user.get_username }} tab on the top right and select Change Password. </p></div></li>
+                          <!--   <li><div id="circle">11</div><a href="#" onclick="toggle('answer11');">What is transaction statistics?</a><br/>
+                          <div style="display:none" id="answer11" class="answer"><p>DHM is Data Health Monitoring.</p></div></li>
+                          <li><div id="circle">12</div><a href="#" onclick="toggle('answer12');">How to generate tran stat report?</a><br/>
+                          <div style="display:none" id="answer12" class="answer"><p>DHM is Data Health Monitoring.</p></div></li> -->
+                    </ul>
+                    </div>
+                    <!-- /.row -->
+                    </div>
+                </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="/static/home/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/home/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
