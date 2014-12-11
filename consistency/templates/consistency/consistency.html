@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %}
+{% block title %}Consistency Report {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <form action=" " method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br />
+            <input type="submit" value="Generate Report" />
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+        {% endblock %}
+
