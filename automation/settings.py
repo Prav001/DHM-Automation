@@ -267,7 +267,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST= 'smtp.gmail.com'
 EMAIL_PORT= 587
 EMAIL_HOST_USER= 'praveensharma900@gmail.com'
-EMAIL_HOST_PASSWORD= 'Mulder321'
+EMAIL_HOST_PASSWORD= '*****************'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
