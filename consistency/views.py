@@ -30,7 +30,6 @@ def consisreportgen(request):
     if request.method == 'POST':
         form = ConsistencyForm(request.POST or None)
         if form.is_valid():
-            global customername
             customername=request.POST.get('Customer','')
             modules_choosen=request.POST.getlist('Modules','')
             bpc_choosen=request.POST.getlist('Components','')
